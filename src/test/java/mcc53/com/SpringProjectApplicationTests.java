@@ -13,7 +13,7 @@ class SpringProjectApplicationTests {
 
     @Test
     void counterTest() {
-        Counter counter1 = new Counter();
+        Counter counter1 = applicationContext.getBean(Counter.class);
         Counter counter2 = applicationContext.getBean(Counter.class);
         Counter counter3 = applicationContext.getBean(Counter.class);
 
@@ -21,9 +21,28 @@ class SpringProjectApplicationTests {
         counter2.counter();
         counter3.counter();
 
-        System.out.println(counter1);
-        System.out.println(counter2);
-        System.out.println(counter3);
+        System.out.println(counter1.getValue());
+        System.out.println(counter2.getValue());
+        System.out.println(counter3.getValue());
     }
 
+//    @Test
+//    void prototypeTest() {
+//        Produk produk1 = applicationContext.getBean("produkSmartPhone", Produk.class);
+//        produk1.setName("Samsung");
+//        produk1.setCategory("smartphone");
+//        System.out.println(produk1.getHarga());
+//
+//
+//    }
+
+    @Test
+    void builderTest() {
+        Produk produk = new Produk()
+                .builder()
+                .name("Samsung")
+                .build();
+
+        System.out.println(produk.toString());
+    }
 }
