@@ -1,4 +1,4 @@
-package mcc53.com;
+package mcc53.com.utils;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Bean;

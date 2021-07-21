@@ -1,5 +1,6 @@
 package mcc53.com;
 
+import mcc53.com.utils.Counter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -38,11 +39,11 @@ class SpringProjectApplicationTests {
 
     @Test
     void builderTest() {
-        Produk produk = new Produk()
-                .builder()
-                .name("Samsung")
-                .build();
-
-        System.out.println(produk.toString());
+//        Produk produk = new Produk()
+//                .builder()
+//                .name("Samsung")
+//                .build();
+//
+//        System.out.println(produk.toString());
     }
 }

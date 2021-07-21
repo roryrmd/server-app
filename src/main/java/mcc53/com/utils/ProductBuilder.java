@@ -1,4 +1,4 @@
-package mcc53.com;
+package mcc53.com.utils;
 
 public class ProductBuilder {
 
