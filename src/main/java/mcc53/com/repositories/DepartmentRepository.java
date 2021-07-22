@@ -5,8 +5,7 @@
  */
 package mcc53.com.repositories;
 
-import java.util.List;
-import mcc53.com.models.Employee;
+import mcc53.com.models.Department;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author WahyuKu
  */
 @Repository
-public interface EmployeeRepository extends JpaRepository<Employee, Long>{
-    
-    List<Employee> findByDepartment_id (Long departmentId);
+public interface DepartmentRepository extends JpaRepository<Department, Long>{
+    Department findByEmployees_id(Long id);
 }

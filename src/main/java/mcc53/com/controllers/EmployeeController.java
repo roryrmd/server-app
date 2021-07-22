@@ -7,6 +7,7 @@ package mcc53.com.controllers;
 
 import java.util.List;
 import mcc53.com.models.Employee;
+import mcc53.com.models.ResponseMessage;
 import mcc53.com.services.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -61,7 +62,8 @@ public class EmployeeController {
     
     @PostMapping
     public ResponseEntity<Employee> create(@RequestBody Employee employee) {
-        return new ResponseEntity(employeeService.create(employee), HttpStatus.OK);
+        return new ResponseEntity(new ResponseMessage<Employee>
+            (employeeService.create(employee), "employee created"), HttpStatus.OK);
     }
     
     @PutMapping("/{id}")

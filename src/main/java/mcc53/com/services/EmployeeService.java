@@ -8,6 +8,7 @@ package mcc53.com.services;
 import java.util.List;
 import java.util.Optional;
 import mcc53.com.models.Employee;
+import mcc53.com.repositories.DepartmentRepository;
 import mcc53.com.repositories.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +23,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class EmployeeService {
     
     private EmployeeRepository employeeRepository;
+    private DepartmentRepository departmentRepository;
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, 
+            DepartmentRepository departmentRepository) {
+        this.departmentRepository = departmentRepository;
         this.employeeRepository = employeeRepository;
     }
     
@@ -40,6 +44,7 @@ public class EmployeeService {
     
     public Employee create(Employee employee) {
         //ketika client memasukan id ke model/object maka kita anggap data sudah ada
+        System.out.println(employee.getDepartment().toString());
         if (employee.getId() != null) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Employee already exist");
@@ -62,5 +67,12 @@ public class EmployeeService {
         employeeRepository.deleteById(id);
         
         return employee;
+    }
+    public List<Employee> findByDepartmentId(Long departmentId) {
+        departmentRepository.findById(departmentId)
+                .orElseThrow(() -> 
+                        new ResponseStatusException(HttpStatus.NOT_FOUND, "Department not found"));
+        
+        return employeeRepository.findByDepartment_id(departmentId);
     }
 }

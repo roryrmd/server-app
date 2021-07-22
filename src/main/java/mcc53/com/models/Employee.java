@@ -5,8 +5,10 @@
  */
 package mcc53.com.models;
 
-import javax.annotation.Generated;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import java.util.List;
 import javax.persistence.*;
+import lombok.Data;
 
 /**
  *
@@ -14,6 +16,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "employee")
+@Data
 public class Employee {
     
     @Id
@@ -36,44 +39,32 @@ public class Employee {
     @Column(name = "address")
     @Basic(optional = true)
     private String address;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department department;
+    
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @ManyToMany
+    @JoinTable(
+            name = "employee_project",
+            joinColumns = @JoinColumn(name = "employee_id"),
+            inverseJoinColumns = @JoinColumn(name = "project_id")
+    )
+    private List<Project> projects;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
+    public Employee(Long id, String firstName, String lastName, String email, 
+            String address, Department department, List<Project> projects) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
         this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
         this.address = address;
+        this.department = department;
+        this.projects = projects;
+    }
+
+    public Employee() {
     }
 }
