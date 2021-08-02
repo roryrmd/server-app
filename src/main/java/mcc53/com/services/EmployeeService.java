@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mcc53.com.services;
 
 import java.util.List;
@@ -15,10 +10,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-/**
- *
- * @author WahyuKu
- */
 @Service
 public class EmployeeService {
     
@@ -42,7 +33,7 @@ public class EmployeeService {
                                HttpStatus.NOT_FOUND, "Employee not found"));
     }
     
-    public Employee create(Employee employee) {
+    public Employee createEmployee(Employee employee) {
         //ketika client memasukan id ke model/object maka kita anggap data sudah ada
         System.out.println(employee.getDepartment().toString());
         if (employee.getId() != null) {

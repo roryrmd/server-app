@@ -1,22 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mcc53.com.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import javax.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-/**
- *
- * @author WahyuKu
- */
+@Builder
 @Entity
 @Table(name = "employee")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Employee {
     
     @Id
@@ -39,13 +36,17 @@ public class Employee {
     @Column(name = "address")
     @Basic(optional = true)
     private String address;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "employee")
+    @PrimaryKeyJoinColumn
+    private User user;
     
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
     
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany
     @JoinTable(
             name = "employee_project",
@@ -54,17 +55,4 @@ public class Employee {
     )
     private List<Project> projects;
 
-    public Employee(Long id, String firstName, String lastName, String email, 
-            String address, Department department, List<Project> projects) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.address = address;
-        this.department = department;
-        this.projects = projects;
-    }
-
-    public Employee() {
-    }
 }

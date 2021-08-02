@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mcc53.com.controllers;
 
 import java.util.List;
@@ -11,17 +6,12 @@ import mcc53.com.services.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-/**
- *
- * @author WahyuKu
- */
 @RestController
 @RequestMapping("/department")
+//@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public class DepartmentController {
     
     private DepartmentService departmentService;
@@ -30,9 +20,34 @@ public class DepartmentController {
     public DepartmentController(DepartmentService departmentService) {
         this.departmentService = departmentService;
     }
-    
+
     @GetMapping
+//    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     public ResponseEntity<List<Department>> getAll() {
         return new ResponseEntity(departmentService.getAll(), HttpStatus.OK);
+    }
+    
+    @GetMapping("/{name}")
+//    @PreAuthorize("hasAuthority('READ_DEPARTMENT_BY_NAME')")
+    public ResponseEntity<List<Department>> getDepartmentByName(@PathVariable("name") String name) {
+        return new ResponseEntity(departmentService.findByDepartmentName(name), HttpStatus.OK);
+    }
+    
+    @PostMapping
+//    @PreAuthorize("hasAuthority('CREATE_DEPARTMENT')")
+    public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
+        return new ResponseEntity(departmentService.createDepartement(department), HttpStatus.OK);
+    }
+    
+    @PutMapping("/{id}")
+//    @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
+    public ResponseEntity<Department> updateDepartment(@PathVariable("id") Long id, @RequestBody Department department) {
+        return new ResponseEntity(departmentService.updateDepartment(id, department), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+//    @PreAuthorize("hasAnyAuthority('DELETE_DEPARTMENT')")
+    public ResponseEntity<Department> deleteDepartment(@PathVariable("id") Long id){
+        return new ResponseEntity(departmentService.deleteDepartment(id), HttpStatus.OK);
     }
 }

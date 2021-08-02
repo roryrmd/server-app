@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mcc53.com.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -13,15 +8,16 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.Data;
 
-/**
- *
- * @author WahyuKu
- */
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "project")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Project {
     
     @Id
@@ -35,13 +31,4 @@ public class Project {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(mappedBy = "projects")
     private List<Employee> employees;
-
-    public Project(Long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
-
-    public Project() {
-    }
 }
