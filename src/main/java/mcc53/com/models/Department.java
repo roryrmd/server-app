@@ -28,7 +28,7 @@ public class Department {
     
     private String name;
 
-//    @ (access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty (access = JsonProperty.Access.WRITE_ONLY)
     @OneToMany(mappedBy = "department")
     private List<Employee> employees;
 
