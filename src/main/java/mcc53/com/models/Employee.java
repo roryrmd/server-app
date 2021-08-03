@@ -41,7 +41,7 @@ public class Employee {
     @PrimaryKeyJoinColumn
     private User user;
     
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department department;
