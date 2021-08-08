@@ -27,10 +27,10 @@ public class DepartmentController {
         return new ResponseEntity(departmentService.getAll(), HttpStatus.OK);
     }
     
-    @GetMapping("/{name}")
+    @GetMapping("/{id}")
 //    @PreAuthorize("hasAuthority('READ_DEPARTMENT_BY_NAME')")
-    public ResponseEntity<List<Department>> getDepartmentByName(@PathVariable("name") String name) {
-        return new ResponseEntity(departmentService.findByDepartmentName(name), HttpStatus.OK);
+    public ResponseEntity<List<Department>> getDepartmentById(@PathVariable("id") Long id) {
+        return new ResponseEntity(departmentService.findDepartmentById(id), HttpStatus.OK);
     }
     
     @PostMapping
