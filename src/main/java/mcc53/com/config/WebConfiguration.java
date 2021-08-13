@@ -32,14 +32,14 @@ public class WebConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
 //                .antMatchers("/department").hasAnyRole("ADMIN", "EMPLOYEE")
-                .antMatchers("/user/**", "/employee/**", "/department/**", "/project/**").permitAll()
+                .antMatchers("/user/**", "/employee/**", "/project/**", "/email/**").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
-        http.cors();
     }
 }

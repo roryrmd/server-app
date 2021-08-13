@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/department")
-//@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 public class DepartmentController {
     
     private DepartmentService departmentService;
@@ -22,31 +22,31 @@ public class DepartmentController {
     }
 
     @GetMapping
-//    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
+    @PreAuthorize("hasAuthority('READ_DEPARTMENT')")
     public ResponseEntity<List<Department>> getAll() {
         return new ResponseEntity(departmentService.getAll(), HttpStatus.OK);
     }
     
-    @GetMapping("/{id}")
-//    @PreAuthorize("hasAuthority('READ_DEPARTMENT_BY_NAME')")
+        @GetMapping("/{id}")
+    @PreAuthorize("hasAuthority('READ_DEPARTMENT_BY_NAME')")
     public ResponseEntity<List<Department>> getDepartmentById(@PathVariable("id") Long id) {
         return new ResponseEntity(departmentService.findDepartmentById(id), HttpStatus.OK);
     }
     
     @PostMapping
-//    @PreAuthorize("hasAuthority('CREATE_DEPARTMENT')")
+    @PreAuthorize("hasAuthority('CREATE_DEPARTMENT')")
     public ResponseEntity<Department> createDepartment(@RequestBody Department department) {
         return new ResponseEntity(departmentService.createDepartement(department), HttpStatus.OK);
     }
     
     @PutMapping("/{id}")
-//    @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
+    @PreAuthorize("hasAuthority('UPDATE_DEPARTMENT')")
     public ResponseEntity<Department> updateDepartment(@PathVariable("id") Long id, @RequestBody Department department) {
         return new ResponseEntity(departmentService.updateDepartment(id, department), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-//    @PreAuthorize("hasAnyAuthority('DELETE_DEPARTMENT')")
+    @PreAuthorize("hasAnyAuthority('DELETE_DEPARTMENT')")
     public ResponseEntity<Department> deleteDepartment(@PathVariable("id") Long id){
         return new ResponseEntity(departmentService.deleteDepartment(id), HttpStatus.OK);
     }
